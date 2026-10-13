@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ms">
 <head>
@@ -38,7 +39,6 @@
 </head>
 <body>
 
-    <!-- Navbar -->
     <div class="navbar">
         <h2>EventHub (Organiser)</h2>
         <div class="user-menu">
@@ -49,16 +49,13 @@
     </div>
 
     <div class="container">
-        <!-- Tab Navigation -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchOrganiserTab('events')">Pengurusan Acara</button>
             <button class="tab-btn" onclick="switchOrganiserTab('venues')">Pengurusan Lokasi (Venues)</button>
         </div>
 
-        <!-- Section 1: Pengurusan Acara -->
         <div id="sectionEvents">
             <div class="grid-2">
-                <!-- Borang Cipta Acara -->
                 <div class="card">
                     <h3>Tambah Acara Baru</h3>
                     <br>
@@ -93,7 +90,6 @@
                     </form>
                 </div>
 
-                <!-- Senarai Acara -->
                 <div class="card">
                     <h3>Senarai Acara Saya</h3>
                     <div style="overflow-x: auto;">
@@ -108,7 +104,6 @@
                                 </tr>
                             </thead>
                             <tbody id="organiserEventsTable">
-                                <!-- Data acara dimasukkan di sini -->
                             </tbody>
                         </table>
                     </div>
@@ -116,10 +111,8 @@
             </div>
         </div>
 
-        <!-- Section 2: Pengurusan Lokasi (Venues) -->
         <div id="sectionVenues" style="display: none;">
             <div class="grid-2">
-                <!-- Borang Tambah Lokasi -->
                 <div class="card">
                     <h3>Tambah Lokasi Baru</h3>
                     <br>
@@ -144,7 +137,6 @@
                     </form>
                 </div>
 
-                <!-- Senarai Lokasi -->
                 <div class="card">
                     <h3>Senarai Lokasi Dewan</h3>
                     <div style="overflow-x: auto;">
@@ -158,7 +150,6 @@
                                 </tr>
                             </thead>
                             <tbody id="venuesTable">
-                                <!-- Data lokasi dimasukkan di sini -->
                             </tbody>
                         </table>
                     </div>
@@ -167,7 +158,6 @@
         </div>
     </div>
 
-    <!-- Modal Profil -->
     <div id="profileModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -182,3 +172,4 @@
     <script src="assets/js/organiser.js"></script>
 </body>
 </html>
+```
