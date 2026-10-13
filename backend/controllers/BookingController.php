@@ -15,12 +15,63 @@ $parts = explode('/', trim($uri, '/'));
 $lastPart = end($parts);
 $secondLastPart = isset($parts[count($parts) - 2]) ? $parts[count($parts) - 2] : '';
 
+// Pengecaman Aksi Batal (/bookings/{id}/cancel)
 $isCancelAction = ($lastPart === 'cancel');
 $bookingId = $isCancelAction ? $secondLastPart : $lastPart;
 $hasId = is_numeric($bookingId);
 
 // -------------------------------------------------------------
-// 1. GET /backend/bookings
+// 1. CANCEL BOOKING 
+// -------------------------------------------------------------
+if ($hasId && $isCancelAction) {
+    if ($method === 'POST' || $method === 'PATCH' || $method === 'PUT' || $method === 'DELETE') {
+        $currentUser = AuthMiddleware::authenticate();
+
+        $stmt = $db->prepare("SELECT * FROM bookings WHERE booking_id = :id");
+        $stmt->execute([':id' => $bookingId]);
+        $booking = $stmt->fetch();
+
+        if (!$booking) {
+            sendResponse(404, false, "Tempahan tidak dijumpai.");
+        }
+
+        // Semak hak akses
+        if (!in_array($currentUser['role'], ['admin', 'super_admin']) && $booking['user_id'] != $currentUser['user_id']) {
+            sendResponse(403, false, "Akses ditolak.");
+        }
+
+        if ($booking['status'] === 'cancelled') {
+            sendResponse(400, false, "Tempahan ini telah dibatalkan sebelum ini.");
+        }
+
+        $db->beginTransaction();
+
+        try {
+           
+            $updateBooking = $db->prepare("UPDATE bookings SET status = 'cancelled' WHERE booking_id = :id");
+            $updateBooking->execute([':id' => $bookingId]);
+
+            
+            $updateEvent = $db->prepare("UPDATE events SET available_tickets = available_tickets + :qty WHERE event_id = :event_id");
+            $updateEvent->execute([
+                ':qty' => $booking['quantity'],
+                ':event_id' => $booking['event_id']
+            ]);
+
+            $db->commit();
+
+            sendResponse(200, true, "Tempahan berjaya dibatalkan dan tiket telah dikembalikan.");
+        } catch (Exception $e) {
+            $db->rollBack();
+            sendResponse(500, false, "Gagal membatalkan tempahan: " . $e->getMessage());
+        }
+    } else {
+        sendResponse(405, false, "Method tidak dibenarkan untuk tindakan pembatalan.");
+    }
+}
+
+// -------------------------------------------------------------
+// 2. GET /backend/bookings ATAU /backend/bookings/{id}
 // -------------------------------------------------------------
 if ($method === 'GET') {
     $currentUser = AuthMiddleware::authenticate();
@@ -48,7 +99,7 @@ if ($method === 'GET') {
 
         sendResponse(200, true, "Maklumat tempahan berjaya diambil.", $booking);
     } else {
-        // DIBAIKE: Benarkan Admin DAN Super Admin lihat semua tempahan
+        // Benarkan Admin DAN Super Admin lihat semua tempahan
         if (in_array($currentUser['role'], ['admin', 'super_admin'])) {
             $query = "SELECT b.*, u.full_name as customer_name, e.title as event_title, e.event_date 
                       FROM bookings b 
@@ -78,7 +129,7 @@ if ($method === 'GET') {
 }
 
 // -------------------------------------------------------------
-// 2. POST /backend/bookings
+// 3. POST /backend/bookings (BUAT TEMPAHAN BARU)
 // -------------------------------------------------------------
 if ($method === 'POST') {
     $currentUser = AuthMiddleware::authorize(['customer', 'admin', 'super_admin']);
@@ -134,45 +185,6 @@ if ($method === 'POST') {
     } catch (Exception $e) {
         $db->rollBack();
         sendResponse(500, false, "Gagal membuat tempahan: " . $e->getMessage());
-    }
-}
-
-// -------------------------------------------------------------
-// 3. CANCEL BOOKING
-// -------------------------------------------------------------
-if (($method === 'PATCH' || $method === 'PUT' || $method === 'DELETE' || $method === 'POST') && $hasId && $isCancelAction) {
-    $currentUser = AuthMiddleware::authenticate();
-
-    $stmt = $db->prepare("SELECT * FROM bookings WHERE booking_id = :id");
-    $stmt->execute([':id' => $bookingId]);
-    $booking = $stmt->fetch();
-
-    if (!$booking) {
-        sendResponse(404, false, "Tempahan tidak dijumpai.");
-    }
-
-    if ($booking['status'] === 'cancelled') {
-        sendResponse(400, false, "Tempahan ini telah dibatalkan sebelum ini.");
-    }
-
-    $db->beginTransaction();
-
-    try {
-        $updateBooking = $db->prepare("UPDATE bookings SET status = 'cancelled' WHERE booking_id = :id");
-        $updateBooking->execute([':id' => $bookingId]);
-
-        $updateEvent = $db->prepare("UPDATE events SET available_tickets = available_tickets + :qty WHERE event_id = :event_id");
-        $updateEvent->execute([
-            ':qty' => $booking['quantity'],
-            ':event_id' => $booking['event_id']
-        ]);
-
-        $db->commit();
-
-        sendResponse(200, true, "Tempahan berjaya dibatalkan dan tiket telah dikembalikan.");
-    } catch (Exception $e) {
-        $db->rollBack();
-        sendResponse(500, false, "Gagal membatalkan tempahan.");
     }
 }
 
