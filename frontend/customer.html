@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ms">
 <head>
@@ -6,7 +7,6 @@
     <title>Customer Dashboard - Event Ticketing</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        /* CSS tambahan khusus untuk Customer Layout */
         .navbar {
             background-color: #2c3e50;
             color: white;
@@ -48,7 +48,6 @@
 </head>
 <body>
 
-    <!-- Navbar -->
     <div class="navbar">
         <h2>EventHub (Customer)</h2>
         <div class="user-menu">
@@ -59,13 +58,11 @@
     </div>
 
     <div class="container">
-        <!-- Tab Navigation -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchCustomerTab('events')">Jelajah Acara</button>
             <button class="tab-btn" onclick="switchCustomerTab('bookings')">Tiket & Tempahan Saya</button>
         </div>
 
-        <!-- Section 1: Jelajah Acara -->
         <div id="sectionEvents">
             <div class="search-bar">
                 <input type="text" id="searchInput" class="form-control" placeholder="Cari nama acara...">
@@ -73,21 +70,17 @@
                 <button class="btn-primary" style="width: 150px;" onclick="loadEvents()">Cari</button>
             </div>
             <div id="eventsList" class="event-grid">
-                <!-- Data acara akan dimuatkan di sini oleh JS -->
             </div>
         </div>
 
-        <!-- Section 2: Tempahan Saya -->
         <div id="sectionBookings" style="display: none;">
             <h3>Tiket Yang Telah Dibeli</h3>
             <br>
             <div id="bookingsList" class="booking-grid">
-                <!-- Data tempahan akan dimuatkan di sini oleh JS -->
             </div>
         </div>
     </div>
 
-    <!-- Modal Beli Tiket -->
     <div id="buyTicketModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -107,7 +100,6 @@
         </div>
     </div>
 
-    <!-- Modal Profil -->
     <div id="profileModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -115,7 +107,6 @@
                 <button class="close-btn" onclick="closeModal('profileModal')">&times;</button>
             </div>
             <div id="profileDetails">
-                <!-- Detail Profil dimuatkan di sini -->
             </div>
         </div>
     </div>
@@ -124,3 +115,4 @@
     <script src="assets/js/customer.js"></script>
 </body>
 </html>
+```
