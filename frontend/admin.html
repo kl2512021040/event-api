@@ -39,7 +39,6 @@
 </head>
 <body>
 
-    <!-- Navbar -->
     <div class="navbar">
         <h2>EventHub (System Admin)</h2>
         <div class="user-menu">
@@ -50,13 +49,11 @@
     </div>
 
     <div class="container">
-        <!-- Tab Navigation -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchAdminTab('users')">Pengurusan Pengguna</button>
             <button class="tab-btn" onclick="switchAdminTab('bookings')">Semua Tempahan Sistem</button>
         </div>
 
-        <!-- Section 1: Pengurusan Pengguna -->
         <div id="sectionUsers">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h3>Senarai Pengguna Terdaftar</h3>
@@ -75,14 +72,12 @@
                             </tr>
                         </thead>
                         <tbody id="usersTable">
-                            <!-- Data pengguna dimasukkan di sini -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- Section 2: Laporan Semua Tempahan -->
         <div id="sectionBookings" style="display: none;">
             <div class="card">
                 <h3>Laporan Keseluruhan Tempahan Tiket</h3>
@@ -99,7 +94,6 @@
                             </tr>
                         </thead>
                         <tbody id="allBookingsTable">
-                            <!-- Data tempahan dimasukkan di sini -->
                         </tbody>
                     </table>
                 </div>
@@ -107,7 +101,6 @@
         </div>
     </div>
 
-    <!-- Modal Tambah Pengguna Oleh Admin / Super Admin -->
     <div id="createOrganiserModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -141,7 +134,6 @@
         </div>
     </div>
 
-    <!-- Modal Profil -->
     <div id="profileModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
