@@ -1,6 +1,6 @@
 // frontend/assets/js/api.js
 
-const API_BASE_URL = 'http://localhost/event-api/backend';
+const API_BASE_URL = 'http://localhost/event-api/backend/index.php';
 
 // 1. Pengurusan Sesi (LocalStorage)
 function setSession(token, user) {
@@ -36,7 +36,7 @@ function redirectByUserRole(role) {
     }
 }
 
-// 3. Page Guard (Semak Akses Halaman secara Tunggal)
+// 3. Page Guard (Semak Akses Halaman)
 function checkAuth(allowedRoles = []) {
     const token = getToken();
     const user = getUser();
@@ -70,27 +70,66 @@ async function apiFetch(endpoint, method = 'GET', data = null) {
 
     try {
         const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
-        const result = await response.json();
+        let result;
 
-        if (response.status === 401) {
+        try {
+            result = await response.json();
+        } catch (e) {
+            result = { status: false, message: 'Format respons pelayan tidak sah.' };
+        }
+
+        if (response.status === 401 && endpoint !== '/auth/login') {
             clearSession();
-            return;
+            return { status: false, message: 'Sesi anda telah tamat. Sila log masuk semula.' };
+        }
+
+        if (!response.ok) {
+            return {
+                status: false,
+                message: result.message || 'E-mel atau kata laluan tidak sah.'
+            };
         }
 
         return result;
     } catch (error) {
         console.error('Error API Fetch:', error);
-        return { status: false, message: 'Gagal merangkaikan permintaan ke pelayan backend.' };
+        return { 
+            status: false, 
+            message: 'Gagal merangkaikan permintaan ke pelayan backend. Pastikan Apache XAMPP berjalan.' 
+        };
     }
 }
 
-// 5. Toast Notification
+// 5. Toast Notification (Direka agar sentiasa kelihatan di atas sekali)
 function showToast(message, type = 'success') {
+    // Paparkan juga pada elemen alertMessage dalam login.html jika ada
+    const alertBox = document.getElementById('alertMessage');
+    if (alertBox) {
+        alertBox.innerText = message;
+        alertBox.style.display = 'block';
+        alertBox.style.padding = '12px 15px';
+        alertBox.style.marginBottom = '15px';
+        alertBox.style.borderRadius = '5px';
+        alertBox.style.textAlign = 'center';
+        alertBox.style.fontWeight = 'bold';
+        
+        if (type === 'error') {
+            alertBox.style.backgroundColor = '#f8d7da';
+            alertBox.style.color = '#721c24';
+            alertBox.style.border = '1px solid #f5c6cb';
+        } else {
+            alertBox.style.backgroundColor = '#d4edda';
+            alertBox.style.color = '#155724';
+            alertBox.style.border = '1px solid #c3e6cb';
+        }
+    }
+
+    // Paparkan Popup Toast terapung di sudut kanan atas
     let toastContainer = document.getElementById('toast-container');
     if (!toastContainer) {
         toastContainer = document.createElement('div');
         toastContainer.id = 'toast-container';
-        toastContainer.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999;';
+        toastContainer.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 999999;';
         document.body.appendChild(toastContainer);
     }
 
@@ -98,9 +137,9 @@ function showToast(message, type = 'success') {
     toast.className = `toast-message ${type}`;
     toast.style.cssText = `
         background-color: ${type === 'success' ? '#28a745' : '#dc3545'};
-        color: white; padding: 12px 20px; margin-bottom: 10px; border-radius: 5px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1); font-family: sans-serif; font-size: 14px;
-        transition: opacity 0.5s ease;
+        color: white; padding: 14px 22px; margin-bottom: 10px; border-radius: 6px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-family: Arial, sans-serif; font-size: 14px;
+        font-weight: bold; transition: opacity 0.5s ease; display: block;
     `;
     toast.innerText = message;
 
@@ -109,5 +148,5 @@ function showToast(message, type = 'success') {
     setTimeout(() => {
         toast.style.opacity = '0';
         setTimeout(() => toast.remove(), 500);
-    }, 3000);
+    }, 4000);
 }
