@@ -1,8 +1,8 @@
--- Cipta Database jika belum wujud
+
 CREATE DATABASE IF NOT EXISTS `event_booking_db`;
 USE `event_booking_db`;
 
--- 1. Jadual Users
+
 CREATE TABLE IF NOT EXISTS `users` (
     `user_id` INT AUTO_INCREMENT PRIMARY KEY,
     `full_name` VARCHAR(100) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 2. Jadual Venues
+
 CREATE TABLE IF NOT EXISTS `venues` (
     `venue_id` INT AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(150) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `venues` (
     FOREIGN KEY (`created_by`) REFERENCES `users`(`user_id`) ON DELETE SET NULL
 );
 
--- 3. Jadual Events
+
 CREATE TABLE IF NOT EXISTS `events` (
     `event_id` INT AUTO_INCREMENT PRIMARY KEY,
     `title` VARCHAR(150) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `events` (
     FOREIGN KEY (`organiser_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE
 );
 
--- 4. Jadual Bookings
+
 CREATE TABLE IF NOT EXISTS `bookings` (
     `booking_id` INT AUTO_INCREMENT PRIMARY KEY,
     `booking_code` VARCHAR(20) NOT NULL UNIQUE,
