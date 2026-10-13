@@ -15,9 +15,6 @@ $parts = explode('/', trim($uri, '/'));
 $id = end($parts);
 $hasId = is_numeric($id);
 
-// -------------------------------------------------------------
-// GET /backend/events
-// -------------------------------------------------------------
 if ($method === 'GET') {
     if ($hasId) {
         $query = "SELECT e.*, v.name as venue_name, v.location, v.city, u.full_name as organiser_name 
@@ -41,7 +38,6 @@ if ($method === 'GET') {
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
         
-        // DIBAIKE: Pengiraan Offset
         $offset = ($page - 1) * $limit;
 
         $whereClause = "WHERE 1=1";
@@ -88,9 +84,6 @@ if ($method === 'GET') {
     }
 }
 
-// -------------------------------------------------------------
-// POST /backend/events (Organiser, Admin, Super Admin)
-// -------------------------------------------------------------
 if ($method === 'POST') {
     $currentUser = AuthMiddleware::authorize(['admin', 'super_admin', 'organiser']);
     $input = json_decode(file_get_contents("php://input"), true);
@@ -119,9 +112,6 @@ if ($method === 'POST') {
     }
 }
 
-// -------------------------------------------------------------
-// PUT /backend/events/{id}
-// -------------------------------------------------------------
 if ($method === 'PUT' && $hasId) {
     AuthMiddleware::authorize(['admin', 'super_admin', 'organiser']);
     $input = json_decode(file_get_contents("php://input"), true);
@@ -146,9 +136,6 @@ if ($method === 'PUT' && $hasId) {
     }
 }
 
-// -------------------------------------------------------------
-// DELETE /backend/events/{id}
-// -------------------------------------------------------------
 if ($method === 'DELETE' && $hasId) {
     AuthMiddleware::authorize(['admin', 'super_admin', 'organiser']);
 
