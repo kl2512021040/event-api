@@ -1,5 +1,5 @@
 <?php
-// backend/controllers/VenueController.php
+
 require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../helpers/response.php";
 require_once __DIR__ . "/../middleware/auth.php";
@@ -10,15 +10,11 @@ $db = $database->getConnection();
 $method = $_SERVER['REQUEST_METHOD'];
 $requestUri = $_SERVER['REQUEST_URI'];
 
-// Ambil ID dari URL jika ada (cth: /venues/1)
 $uri = parse_url($requestUri, PHP_URL_PATH);
 $parts = explode('/', trim($uri, '/'));
 $id = end($parts);
 $hasId = is_numeric($id);
 
-// -------------------------------------------------------------
-// GET /backend/venues ATAU /backend/venues/{id} (Public / All Users)
-// -------------------------------------------------------------
 if ($method === 'GET') {
     if ($hasId) {
         $stmt = $db->prepare("SELECT * FROM venues WHERE venue_id = :id");
@@ -37,9 +33,6 @@ if ($method === 'GET') {
     }
 }
 
-// -------------------------------------------------------------
-// POST /backend/venues (Organiser & Admin sahaja)
-// -------------------------------------------------------------
 if ($method === 'POST') {
     $currentUser = AuthMiddleware::authorize(['admin', 'organiser']);
     $input = json_decode(file_get_contents("php://input"), true);
@@ -64,9 +57,6 @@ if ($method === 'POST') {
     }
 }
 
-// -------------------------------------------------------------
-// PUT /backend/venues/{id} (Organiser & Admin sahaja)
-// -------------------------------------------------------------
 if ($method === 'PUT' && $hasId) {
     AuthMiddleware::authorize(['admin', 'organiser']);
     $input = json_decode(file_get_contents("php://input"), true);
@@ -91,9 +81,6 @@ if ($method === 'PUT' && $hasId) {
     }
 }
 
-// -------------------------------------------------------------
-// DELETE /backend/venues/{id} (Organiser & Admin sahaja)
-// -------------------------------------------------------------
 if ($method === 'DELETE' && $hasId) {
     AuthMiddleware::authorize(['admin', 'organiser']);
 
