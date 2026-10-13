@@ -1,5 +1,5 @@
 <?php
-// backend/controllers/UserController.php
+
 require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../helpers/response.php";
 require_once __DIR__ . "/../middleware/auth.php";
@@ -10,11 +10,6 @@ $db = $database->getConnection();
 $method = $_SERVER['REQUEST_METHOD'];
 $requestUri = $_SERVER['REQUEST_URI'];
 
-// -------------------------------------------------------------
-// 1. ROUTE AUTHENTICATION (/auth/...)
-// -------------------------------------------------------------
-
-// REGISTER
 if (strpos($requestUri, 'register') !== false) {
     $input = json_decode(file_get_contents("php://input"), true);
 
@@ -28,7 +23,6 @@ if (strpos($requestUri, 'register') !== false) {
         sendResponse(400, false, "E-mel ini telah digunakan.");
     }
 
-    // Benarkan peranan customer, organiser, admin, dan super_admin
     $allowedRoles = ['customer', 'organiser', 'admin', 'super_admin'];
     $role = (isset($input['role']) && in_array($input['role'], $allowedRoles)) ? $input['role'] : 'customer';
     $hashedPassword = password_hash($input['password'], PASSWORD_BCRYPT);
@@ -43,7 +37,6 @@ if (strpos($requestUri, 'register') !== false) {
     }
 }
 
-// LOGIN
 if (strpos($requestUri, 'login') !== false) {
     $input = json_decode(file_get_contents("php://input"), true);
 
@@ -75,9 +68,6 @@ if (strpos($requestUri, 'login') !== false) {
     }
 }
 
-// -------------------------------------------------------------
-// 2. ROUTE USERS (/users/...)
-// -------------------------------------------------------------
 if (strpos($requestUri, 'profile') !== false) {
     $currentUser = AuthMiddleware::authenticate();
     
@@ -89,7 +79,6 @@ if (strpos($requestUri, 'profile') !== false) {
 }
 
 if (strpos($requestUri, 'users') !== false && strpos($requestUri, 'profile') === false) {
-    // KEMASKINI: Benarkan Admin DAN Super Admin
     AuthMiddleware::authorize(['admin', 'super_admin']);
 
     $stmt = $db->query("SELECT user_id, full_name, email, role, created_at FROM users ORDER BY user_id DESC");
@@ -98,5 +87,4 @@ if (strpos($requestUri, 'users') !== false && strpos($requestUri, 'profile') ===
     sendResponse(200, true, "Senarai semua pengguna berjaya diambil.", $users);
 }
 
-// Fallback
 sendResponse(404, false, "Route tidak dijumpai.");
