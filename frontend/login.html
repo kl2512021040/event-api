@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Masuk & Pendaftaran - Event Ticketing</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>Event Ticketing System</h2>
+            <p style="font-size: 14px; color: #666;">Sila log masuk atau daftar akaun baru</p>
+        </div>
+
+        <!-- Tab Pilihan -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('login')">Log Masuk</button>
+            <button class="tab-btn" onclick="switchTab('register')">Daftar Akaun</button>
+        </div>
+
+        <!-- Borang Log Masuk (Login Form) -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">Alamat E-mel</label>
+                <input type="email" id="loginEmail" class="form-control" placeholder="contoh@gmail.com" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Kata Laluan</label>
+                <div class="password-wrapper">
+                    <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword('loginPassword', this)">Show</button>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary">Log Masuk</button>
+        </form>
+
+        <!-- Borang Pendaftaran Awam (Pendaftaran automatik sebagai Customer) -->
+        <form id="registerForm" style="display: none;">
+            <div class="form-group">
+                <label for="regFullName">Nama Penuh</label>
+                <input type="text" id="regFullName" class="form-control" placeholder="Nama Anda" required>
+            </div>
+            <div class="form-group">
+                <label for="regEmail">Alamat E-mel</label>
+                <input type="email" id="regEmail" class="form-control" placeholder="contoh@gmail.com" required>
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Kata Laluan</label>
+                <div class="password-wrapper">
+                    <input type="password" id="regPassword" class="form-control" placeholder="••••••••" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword('regPassword', this)">Show</button>
+                </div>
+            </div>
+            <input type="hidden" id="regRole" value="customer">
+            <button type="submit" class="btn-primary">Daftar Akaun Customer</button>
+        </form>
+    </div>
+
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>
