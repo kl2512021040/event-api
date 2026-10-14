@@ -1,1 +1,175 @@
+```html
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organiser Dashboard - Event Ticketing</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .navbar {
+            background-color: #16a085;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar .user-menu { display: flex; gap: 10px; align-items: center; }
+        .btn-nav {
+            background: #1abc9c; color: white; border: none;
+            padding: 8px 14px; border-radius: 4px; cursor: pointer;
+        }
+        .btn-nav:hover { background: #117864; }
+        .btn-logout { background: #e74c3c; }
+        .btn-logout:hover { background: #c0392b; }
 
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .card { background: white; padding: 25px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .grid-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        table th, table td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 14px; }
+        table th { background-color: #f8f9fa; }
+        
+        .btn-sm { padding: 5px 10px; font-size: 12px; border-radius: 4px; border: none; cursor: pointer; color: white; }
+        .btn-edit { background: #f39c12; }
+        .btn-delete { background: #e74c3c; }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h2>EventHub (Organiser)</h2>
+        <div class="user-menu">
+            <span id="navUserName">Selamat Datang</span>
+            <button class="btn-nav" onclick="openProfileModal()">Profil</button>
+            <button class="btn-nav btn-logout" onclick="clearSession()">Log Keluar</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchOrganiserTab('events')">Pengurusan Acara</button>
+            <button class="tab-btn" onclick="switchOrganiserTab('venues')">Pengurusan Lokasi (Venues)</button>
+        </div>
+
+        <div id="sectionEvents">
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Tambah Acara Baru</h3>
+                    <br>
+                    <form id="createEventForm">
+                        <div class="form-group">
+                            <label>Tajuk Acara</label>
+                            <input type="text" id="eventTitle" class="form-control" required placeholder="cth: Tech Conference 2026">
+                        </div>
+                        <div class="form-group">
+                            <label>Penerangan</label>
+                            <textarea id="eventDesc" class="form-control" rows="3" placeholder="Butiran acara..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Pilih Lokasi Dewan</label>
+                            <select id="eventVenueId" class="form-control" required>
+                                <option value="">-- Pilih Lokasi --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tarikh & Masa</label>
+                            <input type="datetime-local" id="eventDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Harga Tiket (RM)</label>
+                            <input type="number" id="eventPrice" class="form-control" step="0.01" min="0" required placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Tiket</label>
+                            <input type="number" id="eventTotalTickets" class="form-control" min="1" required placeholder="100">
+                        </div>
+                        <button type="submit" class="btn-primary">Cipta Acara</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Senarai Acara Saya</h3>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tajuk</th>
+                                    <th>Tarikh</th>
+                                    <th>Harga</th>
+                                    <th>Tiket (Baki/Total)</th>
+                                    <th>Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="organiserEventsTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sectionVenues" style="display: none;">
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Tambah Lokasi Baru</h3>
+                    <br>
+                    <form id="createVenueForm">
+                        <div class="form-group">
+                            <label>Nama Tempat / Dewan</label>
+                            <input type="text" id="venueName" class="form-control" required placeholder="cth: Axiata Arena">
+                        </div>
+                        <div class="form-group">
+                            <label>Alamat / Lokasi</label>
+                            <input type="text" id="venueLocation" class="form-control" required placeholder="cth: Bukit Jalil">
+                        </div>
+                        <div class="form-group">
+                            <label>Bandar</label>
+                            <input type="text" id="venueCity" class="form-control" required placeholder="cth: Kuala Lumpur">
+                        </div>
+                        <div class="form-group">
+                            <label>Kapasiti Tempat</label>
+                            <input type="number" id="venueCapacity" class="form-control" required placeholder="5000">
+                        </div>
+                        <button type="submit" class="btn-primary">Tambah Lokasi</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Senarai Lokasi Dewan</h3>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama Tempat</th>
+                                    <th>Bandar</th>
+                                    <th>Kapasiti</th>
+                                    <th>Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="venuesTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Profil Pengguna</h3>
+                <button class="close-btn" onclick="closeModal('profileModal')">&times;</button>
+            </div>
+            <div id="profileDetails"></div>
+        </div>
+    </div>
+
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/organiser.js"></script>
+</body>
+</html>
+```
