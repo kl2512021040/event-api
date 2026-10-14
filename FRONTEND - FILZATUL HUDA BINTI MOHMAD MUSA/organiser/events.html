@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Event Management | EventHub Studio</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/organiser.css?v=2">
+    <link rel="stylesheet" href="../css/organiser-events.css?v=2">
+</head>
+
+<body>
+<div class="org-layout">
+
+    <aside class="org-sidebar">
+        <a href="index.html" class="org-brand">
+            <span class="org-brand-icon">
+                <i class="bi bi-ticket-perforated"></i>
+            </span>
+            <span>EventHub.</span>
+        </a>
+
+        <div class="org-nav-label">Organiser Workspace</div>
+
+        <nav class="org-nav">
+            <a href="index.html">
+                <i class="bi bi-grid-1x2"></i>
+                Overview
+            </a>
+
+            <a href="events.html" class="active">
+                <i class="bi bi-calendar-event"></i>
+                Event Management
+            </a>
+        </nav>
+
+        <div class="org-sidebar-footer">
+            <div class="org-user">
+                <div class="org-avatar" id="organiserAvatar">O</div>
+
+                <div class="org-user-details">
+                    <strong id="organiserName">Organiser</strong>
+                    <span>Event Organiser</span>
+                </div>
+            </div>
+
+            <nav class="org-nav">
+                <button type="button" id="logoutButton">
+                    <i class="bi bi-box-arrow-left"></i>
+                    Sign Out
+                </button>
+            </nav>
+        </div>
+    </aside>
+
+    <main class="org-main">
+
+        <header class="org-topbar">
+            <span>Workspace / Event Management</span>
+            <time id="currentDate">Loading date...</time>
+        </header>
+
+        <section class="org-content">
+
+            <div class="org-heading">
+                <div>
+                    <div class="org-eyebrow">Create & Manage</div>
+                    <h1>Event Management</h1>
+                    <p>
+                        Create memorable events and manage your listings.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    class="org-button"
+                    id="addEventButton"
+                >
+                    <i class="bi bi-plus-lg"></i>
+                    Add Event
+                </button>
+            </div>
+
+            <div
+                id="pageAlert"
+                class="oe-alert"
+                role="alert"
+            ></div>
+
+            <div class="org-stats">
+                <div class="org-stat-card">
+                    <div class="org-stat-top">
+                        <span class="org-stat-label">My Events</span>
+                        <span class="org-stat-icon">
+                            <i class="bi bi-calendar-event"></i>
+                        </span>
+                    </div>
+
+                    <div class="org-stat-value" id="totalEvents">—</div>
+                    <div class="org-stat-description">
+                        Events owned by your account
+                    </div>
+                </div>
+
+                <div class="org-stat-card">
+                    <div class="org-stat-top">
+                        <span class="org-stat-label">Available Tickets</span>
+                        <span class="org-stat-icon">
+                            <i class="bi bi-ticket-perforated"></i>
+                        </span>
+                    </div>
+
+                    <div class="org-stat-value" id="availableTickets">—</div>
+                    <div class="org-stat-description">
+                        Remaining tickets across your events
+                    </div>
+                </div>
+
+                <div class="org-stat-card">
+                    <div class="org-stat-top">
+                        <span class="org-stat-label">Total Ticket Capacity</span>
+                        <span class="org-stat-icon">
+                            <i class="bi bi-people"></i>
+                        </span>
+                    </div>
+
+                    <div class="org-stat-value" id="totalTickets">—</div>
+                    <div class="org-stat-description">
+                        Total tickets allocated
+                    </div>
+                </div>
+            </div>
+
+            <section class="org-panel">
+                <div class="org-panel-heading">
+                    <div>
+                        <h2>My Events</h2>
+                        <p>
+                            Search, update and maintain your event listings.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="org-button org-button-secondary"
+                        id="refreshButton"
+                    >
+                        <i class="bi bi-arrow-clockwise"></i>
+                        Refresh
+                    </button>
+                </div>
+
+                <div class="oe-toolbar">
+                    <input
+                        type="search"
+                        id="searchEvents"
+                        class="oe-search"
+                        placeholder="Search by event name, venue or city..."
+                        aria-label="Search events"
+                    >
+                </div>
+
+                <div class="org-table-wrap">
+                    <table class="org-table">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Venue / City</th>
+                                <th>Event Date</th>
+                                <th>Ticket Price</th>
+                                <th>Tickets</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="eventsTable">
+                            <tr>
+                                <td colspan="6" class="org-empty">
+                                    Loading events...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </section>
+    </main>
+</div>
+
+<!-- ADD / EDIT EVENT MODAL -->
+<div
+    class="oe-modal"
+    id="eventModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="eventModalTitle"
+    hidden
+>
+    <div class="oe-modal-card">
+
+        <div class="oe-modal-heading">
+            <div>
+                <h2 id="eventModalTitle">Add Event</h2>
+                <p id="eventModalDescription">
+                    Complete the details to create a new event.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                class="oe-close"
+                id="closeModalButton"
+                aria-label="Close dialog"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <form class="oe-form" id="eventForm">
+
+            <div
+                class="oe-alert"
+                id="formAlert"
+                role="alert"
+            ></div>
+
+            <input type="hidden" id="eventId">
+
+            <div class="oe-form-grid">
+
+                <div class="oe-field full">
+                    <label for="eventTitle">Event Name *</label>
+                    <input
+                        type="text"
+                        class="oe-input"
+                        id="eventTitle"
+                        maxlength="150"
+                        placeholder="e.g. Creative Technology Expo"
+                        required
+                    >
+                </div>
+
+                <div class="oe-field full">
+                    <label for="eventDescription">Description</label>
+                    <textarea
+                        class="oe-textarea"
+                        id="eventDescription"
+                        placeholder="Describe your event..."
+                    ></textarea>
+                </div>
+
+                <div class="oe-field full">
+                    <label for="eventVenue">Venue *</label>
+                    <select
+                        class="oe-select"
+                        id="eventVenue"
+                        required
+                    >
+                        <option value="">Loading venues...</option>
+                    </select>
+
+                    <p class="oe-hint" id="venueHint">
+                        Select a venue for your event.
+                    </p>
+                </div>
+
+                <div class="oe-field full">
+                    <label for="eventDate">Event Date & Time *</label>
+                    <input
+                        type="datetime-local"
+                        class="oe-input"
+                        id="eventDate"
+                        required
+                    >
+                </div>
+
+                <div class="oe-field">
+                    <label for="ticketPrice">Ticket Price (RM) *</label>
+                    <input
+                        type="number"
+                        class="oe-input"
+                        id="ticketPrice"
+                        min="0"
+                        step="0.01"
+                        placeholder="e.g. 50.00"
+                        required
+                    >
+                </div>
+
+                <div class="oe-field">
+                    <label for="totalTicketCount">Total Tickets *</label>
+                    <input
+                        type="number"
+                        class="oe-input"
+                        id="totalTicketCount"
+                        min="1"
+                        step="1"
+                        placeholder="e.g. 300"
+                        required
+                    >
+                </div>
+
+            </div>
+
+            <div class="oe-form-actions">
+                <button
+                    type="button"
+                    class="org-button org-button-secondary"
+                    id="cancelModalButton"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="org-button"
+                    id="saveEventButton"
+                >
+                    <i class="bi bi-check-lg"></i>
+                    Create Event
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../js/config.js?v=2"></script>
+<script src="../js/organiser-events.js?v=2"></script>
+</body>
+</html>
