@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Ticket | EventHub Studio</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/customer.css?v=3">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="cd-header">
+        <nav class="cd-nav">
+
+            <a href="index.html" class="cd-brand">
+                <span class="cd-brand-mark">
+                    <i class="bi bi-ticket-perforated"></i>
+                </span>
+                EventHub<span class="cd-brand-dot">.</span>
+            </a>
+
+            <div class="cd-nav-links">
+                <a href="index.html">Discover</a>
+                <a href="bookings.html" class="active">My Bookings</a>
+            </div>
+
+            <div class="cd-nav-user">
+                <span class="cd-welcome" id="customerName">
+                    Welcome, Customer
+                </span>
+
+                <button
+                    type="button"
+                    class="cd-signout"
+                    id="logoutButton"
+                >
+                    <i class="bi bi-box-arrow-right"></i>
+                    Sign Out
+                </button>
+            </div>
+
+        </nav>
+    </header>
+
+    <main class="ct-main">
+        <div class="cd-container">
+
+            <!-- PAGE HEADER -->
+            <div class="ct-page-header">
+                <div>
+                    <div class="cd-section-eyebrow">
+                        YOUR EVENT PASS
+                    </div>
+
+                    <h1>Your ticket<span>.</span></h1>
+
+                    <p>
+                        All the details for your next experience,
+                        beautifully kept in one place.
+                    </p>
+                </div>
+
+                <a href="bookings.html" class="ct-back-link">
+                    <i class="bi bi-arrow-left"></i>
+                    Back to My Bookings
+                </a>
+            </div>
+
+            <!-- ERROR -->
+            <div
+                class="cd-alert"
+                id="ticketAlert"
+                role="alert"
+                hidden
+            ></div>
+
+            <!-- LOADING -->
+            <div class="ct-loading" id="ticketLoading">
+                <div class="cd-spinner"></div>
+                <p>Preparing your ticket...</p>
+            </div>
+
+            <!-- TICKET -->
+            <section class="ct-ticket-wrapper" id="ticketSection" hidden>
+
+                <div class="ct-ticket" id="printableTicket">
+
+                    <!-- TOP BANNER -->
+                    <div class="ct-ticket-banner">
+
+                        <div class="ct-ticket-brand">
+                            <i class="bi bi-ticket-perforated"></i>
+                            <span>EventHub<strong>.</strong></span>
+                        </div>
+
+                        <span class="ct-ticket-type">
+                            OFFICIAL EVENT PASS
+                        </span>
+
+                        <div class="ct-ticket-banner-content">
+                            <span>YOUR NEXT EXPERIENCE</span>
+                            <h2 id="ticketEventTitle">Event Title</h2>
+                        </div>
+
+                        <div class="ct-ticket-decoration">
+                            <i class="bi bi-stars"></i>
+                        </div>
+
+                    </div>
+
+                    <!-- MAIN TICKET DETAILS -->
+                    <div class="ct-ticket-body">
+
+                        <div class="ct-ticket-status-row">
+
+                            <span class="ct-ticket-reference">
+                                BOOKING REF:
+                                <strong id="ticketBookingCode">—</strong>
+                            </span>
+
+                            <span
+                                class="ct-status confirmed"
+                                id="ticketStatus"
+                            >
+                                Confirmed
+                            </span>
+
+                        </div>
+
+                        <div class="ct-ticket-details">
+
+                            <div class="ct-detail">
+                                <span>
+                                    <i class="bi bi-calendar3"></i>
+                                    EVENT DATE & TIME
+                                </span>
+                                <strong id="ticketEventDate">—</strong>
+                            </div>
+
+                            <div class="ct-detail">
+                                <span>
+                                    <i class="bi bi-geo-alt"></i>
+                                    VENUE
+                                </span>
+                                <strong id="ticketVenue">—</strong>
+                            </div>
+
+                            <div class="ct-detail">
+                                <span>
+                                    <i class="bi bi-ticket-perforated"></i>
+                                    TICKET QUANTITY
+                                </span>
+                                <strong id="ticketQuantity">—</strong>
+                            </div>
+
+                            <div class="ct-detail">
+                                <span>
+                                    <i class="bi bi-wallet2"></i>
+                                    TOTAL AMOUNT
+                                </span>
+                                <strong id="ticketTotal">—</strong>
+                            </div>
+
+                        </div>
+
+                        <div class="ct-ticket-divider">
+                            <span></span>
+                            <div class="ct-ticket-dashes"></div>
+                            <span></span>
+                        </div>
+
+                        <!-- QR SECTION -->
+                        <div class="ct-qr-section">
+
+                            <div class="ct-qr-copy">
+                                <span class="ct-qr-eyebrow">
+                                    YOUR DIGITAL PASS
+                                </span>
+
+                                <h3>Ready for the moment.</h3>
+
+                                <p id="ticketInstructions">
+                                    Present this QR code at the event
+                                    entrance for verification.
+                                </p>
+
+                                <div class="ct-qr-code-text">
+                                    <small>BOOKING CODE</small>
+                                    <strong id="ticketCodeBottom">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="ct-qr-box">
+                                <img
+                                    id="ticketQrImage"
+                                    alt="Booking QR code"
+                                    width="180"
+                                    height="180"
+                                >
+
+                                <span id="qrStatusText">
+                                    SCAN AT ENTRANCE
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="ct-ticket-footer">
+                            <span>EVENTHUB STUDIO</span>
+                            <span>DISCOVER · EXPERIENCE · REMEMBER</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="ct-ticket-actions">
+
+                    <a href="bookings.html" class="ct-secondary-button">
+                        <i class="bi bi-arrow-left"></i>
+                        My Bookings
+                    </a>
+
+                    <button
+                        type="button"
+                        class="cd-primary-button"
+                        id="printTicketButton"
+                    >
+                        <i class="bi bi-printer"></i>
+                        Print Ticket
+                    </button>
+
+                </div>
+
+                <p class="ct-ticket-note">
+                    <i class="bi bi-info-circle"></i>
+                    Keep your booking reference safe.
+                    Cancelled tickets are not valid for entry.
+                </p>
+
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="cd-footer">
+        <div class="cd-container cd-footer-inner">
+
+            <div>
+                <strong>EventHub<span>.</span></strong>
+                <p>Discover. Experience. Remember.</p>
+            </div>
+
+            <small>EventHub Studio · Customer Experience</small>
+
+        </div>
+    </footer>
+
+    <script src="../js/config.js?v=3"></script>
+    <script src="../js/customer-ticket.js?v=3"></script>
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Discover Events | EventHub Studio</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/customer.css?v=1">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="cd-header">
+        <nav class="cd-nav">
+            <a href="index.html" class="cd-brand">
+                <span class="cd-brand-mark">
+                    <i class="bi bi-ticket-perforated"></i>
+                </span>
+                EventHub<span class="cd-brand-dot">.</span>
+            </a>
+
+            <div class="cd-nav-links">
+                <a href="index.html" class="active">Discover</a>
+                <a href="bookings.html">My Bookings</a>
+            </div>
+
+            <div class="cd-nav-user">
+                <span class="cd-welcome" id="customerName">
+                    Welcome, Customer
+                </span>
+
+                <button
+                    type="button"
+                    class="cd-signout"
+                    id="logoutButton"
+                >
+                    <i class="bi bi-box-arrow-right"></i>
+                    Sign Out
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Hero -->
+        <section class="cd-hero">
+            <div class="cd-container cd-hero-inner">
+
+                <div class="cd-hero-copy">
+                    <span class="cd-eyebrow">
+                        <span class="cd-eyebrow-line"></span>
+                        YOUR NEXT EXPERIENCE STARTS HERE
+                    </span>
+
+                    <h1>
+                        Moments worth
+                        <em>showing up for.</em>
+                    </h1>
+
+                    <p>
+                        Discover unforgettable events, find your next
+                        favourite experience, and book your place
+                        in just a few clicks.
+                    </p>
+
+                    <a href="#explore" class="cd-primary-button">
+                        Explore Events
+                        <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+
+                <div class="cd-hero-art" aria-hidden="true">
+                    <div class="cd-art-circle cd-art-circle-one"></div>
+                    <div class="cd-art-circle cd-art-circle-two"></div>
+
+                    <div class="cd-art-card">
+                        <div class="cd-art-icon">
+                            <i class="bi bi-stars"></i>
+                        </div>
+
+                        <span class="cd-art-small">CURATED EXPERIENCES</span>
+                        <strong>Find your<br>next story.</strong>
+
+                        <div class="cd-art-bottom">
+                            <span>EVENTHUB STUDIO</span>
+                            <i class="bi bi-arrow-up-right"></i>
+                        </div>
+                    </div>
+
+                    <span class="cd-art-sparkle">
+                        <i class="bi bi-asterisk"></i>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Explore -->
+        <section class="cd-explore" id="explore">
+            <div class="cd-container">
+
+                <div class="cd-section-heading">
+                    <div>
+                        <div class="cd-section-eyebrow">
+                            THE EVENT EDIT
+                        </div>
+
+                        <h2>Discover what's happening.</h2>
+
+                        <p>
+                            Browse experiences created for curious minds
+                            and unforgettable moments.
+                        </p>
+                    </div>
+
+                    <div class="cd-event-counter">
+                        <span id="eventCount">—</span>
+                        <small>Events found</small>
+                    </div>
+                </div>
+
+                <!-- Search / Filters -->
+                <div class="cd-filter-bar">
+
+                    <div class="cd-search-field">
+                        <i class="bi bi-search"></i>
+
+                        <input
+                            type="search"
+                            id="eventSearch"
+                            placeholder="Search events..."
+                            aria-label="Search events"
+                        >
+                    </div>
+
+                    <div class="cd-city-field">
+                        <i class="bi bi-geo-alt"></i>
+
+                        <select
+                            id="cityFilter"
+                            aria-label="Filter by city"
+                        >
+                            <option value="">All Cities</option>
+                        </select>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="cd-refresh-button"
+                        id="refreshButton"
+                    >
+                        <i class="bi bi-arrow-clockwise"></i>
+                        Refresh
+                    </button>
+                </div>
+
+                <!-- Messages -->
+                <div
+                    class="cd-alert"
+                    id="pageAlert"
+                    role="alert"
+                    hidden
+                ></div>
+
+                <!-- Event Cards -->
+                <div class="cd-event-grid" id="eventGrid">
+
+                    <div class="cd-loading">
+                        <div class="cd-spinner"></div>
+                        <p>Finding amazing events for you...</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="cd-footer">
+            <div class="cd-container cd-footer-inner">
+                <div>
+                    <strong>EventHub<span>.</span></strong>
+                    <p>Discover. Experience. Remember.</p>
+                </div>
+
+                <small>EventHub Studio · Customer Experience</small>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Event Details Modal -->
+    <div
+        class="cd-modal"
+        id="eventModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+        hidden
+    >
+        <div class="cd-modal-card">
+
+            <button
+                type="button"
+                class="cd-modal-close"
+                id="closeModalButton"
+                aria-label="Close event details"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+            <div class="cd-modal-banner">
+                <div class="cd-modal-banner-icon">
+                    <i class="bi bi-calendar2-event"></i>
+                </div>
+                <span>EVENT DETAILS</span>
+            </div>
+
+            <div class="cd-modal-content">
+
+                <div class="cd-modal-eyebrow">
+                    YOUR NEXT EXPERIENCE
+                </div>
+
+                <h2 id="modalTitle">Event Title</h2>
+
+                <p class="cd-modal-description" id="modalDescription"></p>
+
+                <div class="cd-detail-list">
+
+                    <div class="cd-detail-item">
+                        <i class="bi bi-calendar3"></i>
+                        <div>
+                            <small>Date & Time</small>
+                            <strong id="modalDate">—</strong>
+                        </div>
+                    </div>
+
+                    <div class="cd-detail-item">
+                        <i class="bi bi-geo-alt"></i>
+                        <div>
+                            <small>Venue</small>
+                            <strong id="modalVenue">—</strong>
+                        </div>
+                    </div>
+
+                    <div class="cd-detail-item">
+                        <i class="bi bi-ticket-perforated"></i>
+                        <div>
+                            <small>Tickets Available</small>
+                            <strong id="modalTickets">—</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="cd-modal-footer">
+                    <div>
+                        <small>PRICE PER TICKET</small>
+                        <strong id="modalPrice">RM —</strong>
+                    </div>
+
+                    <a
+                        href="bookings.html"
+                        class="cd-primary-button"
+                        id="modalBookButton"
+                    >
+                        Book Tickets
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/config.js?v=1"></script>
+    <script src="../js/customer.js?v=1"></script>
+</body>
+</html>
