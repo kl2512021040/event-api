@@ -1,0 +1,252 @@
+
+/* =========================================
+   EVENTHUB STUDIO — EVENT MANAGEMENT
+========================================= */
+
+.oe-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e9e3d9;
+}
+
+.oe-search {
+    width: 100%;
+    max-width: 430px;
+    min-height: 43px;
+    padding: 10px 14px;
+    border: 1px solid #ded9cf;
+    border-radius: 9px;
+    outline: none;
+    background: #fff;
+    color: #292b28;
+    font-size: 12px;
+}
+
+.oe-search:focus,
+.oe-input:focus,
+.oe-textarea:focus,
+.oe-select:focus {
+    border-color: #bd6547;
+    box-shadow: 0 0 0 3px rgba(189, 101, 71, 0.12);
+}
+
+.oe-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.oe-icon-button {
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #ded9cf;
+    border-radius: 8px;
+    background: #fbf9f5;
+    color: #555249;
+    cursor: pointer;
+}
+
+.oe-icon-button:hover {
+    border-color: #bd6547;
+    color: #a85338;
+    background: #f3e5dc;
+}
+
+.oe-icon-button.danger:hover {
+    border-color: #e2aaa1;
+    color: #a33228;
+    background: #f8e9e7;
+}
+
+.oe-icon-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.oe-modal[hidden] {
+    display: none !important;
+}
+
+.oe-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(23, 25, 23, 0.65);
+    overflow-y: auto;
+}
+
+.oe-modal-card {
+    width: 100%;
+    max-width: 650px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    border-radius: 16px;
+    background: #fbf9f5;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
+}
+
+.oe-modal-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 26px;
+    border-bottom: 1px solid #e9e3d9;
+}
+
+.oe-modal-heading h2 {
+    margin: 0;
+    color: #292b28;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.oe-modal-heading p {
+    margin: 7px 0 0;
+    color: #77746b;
+    font-size: 12px;
+}
+
+.oe-close {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border: 1px solid #ded9cf;
+    border-radius: 8px;
+    background: transparent;
+    color: #555249;
+    cursor: pointer;
+}
+
+.oe-form {
+    padding: 24px 26px;
+}
+
+.oe-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.oe-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.oe-field.full {
+    grid-column: 1 / -1;
+}
+
+.oe-field label {
+    color: #45443e;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.oe-input,
+.oe-textarea,
+.oe-select {
+    width: 100%;
+    min-height: 43px;
+    padding: 10px 12px;
+    border: 1px solid #ded9cf;
+    border-radius: 9px;
+    outline: none;
+    background: #fff;
+    color: #292b28;
+    font-size: 12px;
+}
+
+.oe-textarea {
+    min-height: 95px;
+    resize: vertical;
+}
+
+.oe-input:disabled,
+.oe-select:disabled {
+    background: #eeeae2;
+    color: #77746b;
+}
+
+.oe-hint {
+    margin: 3px 0 0;
+    color: #89867d;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.oe-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.oe-alert {
+    display: none;
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    border: 1px solid #e6c5b9;
+    border-radius: 9px;
+    background: #f8e9e3;
+    color: #8c402c;
+    font-size: 12px;
+}
+
+.oe-alert.success {
+    border-color: #b9d6bd;
+    background: #e9f3e8;
+    color: #426544;
+}
+
+.oe-price {
+    font-weight: 600;
+    color: #292b28;
+}
+
+.oe-event-description {
+    max-width: 270px;
+    overflow: hidden;
+    color: #89867d;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+    .oe-toolbar {
+        padding: 16px;
+    }
+
+    .oe-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .oe-field.full {
+        grid-column: auto;
+    }
+
+    .oe-modal-heading,
+    .oe-form {
+        padding: 20px;
+    }
+
+    .oe-form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .oe-form-actions .org-button {
+        width: 100%;
+    }
+}
