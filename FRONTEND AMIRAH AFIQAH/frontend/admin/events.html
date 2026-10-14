@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Events | Gather & Co. Admin</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="events.css">
+  <script src="events.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">Gather <span>&amp; Co.</span></a>
+
+      <nav class="navigation">
+        <a href="index.html#overview">Overview</a>
+        <a href="index.html#users">Users</a>
+        <a href="events.html" class="active">Events</a>
+        <a href="index.html#platform">Platform</a>
+      </nav>
+
+      <div class="nav-actions">
+        <span id="welcome-name">Hi, Admin!</span>
+        <button id="logout-btn" class="logout-btn" type="button">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="events-hero">
+      <div>
+        <span class="hero-label">ADMIN EVENT DIRECTORY</span>
+        <h1>Every event.<br><span>One place.</span></h1>
+        <p>Explore all events hosted on Gather & Co. and monitor their details.</p>
+      </div>
+      <div class="hero-symbol" aria-hidden="true">✳</div>
+    </section>
+
+    <section class="events-content">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">EVENT DIRECTORY</span>
+          <h2>All Events</h2>
+          <p>Browse events, organisers, venues and ticket information.</p>
+        </div>
+
+        <button id="refresh-events" class="refresh-btn" type="button">
+          Refresh ↻
+        </button>
+      </div>
+
+      <div class="event-stats">
+        <article class="event-stat">
+          <span>Total Events</span>
+          <strong id="stat-total">—</strong>
+        </article>
+        <article class="event-stat">
+          <span>Upcoming Events</span>
+          <strong id="stat-upcoming">—</strong>
+        </article>
+        <article class="event-stat">
+          <span>Past Events</span>
+          <strong id="stat-past">—</strong>
+        </article>
+      </div>
+
+      <div class="events-panel">
+        <div class="event-toolbar">
+          <input
+            id="event-search"
+            type="search"
+            placeholder="Search event, organiser, venue or city..."
+            aria-label="Search events"
+          >
+
+          <select id="status-filter" aria-label="Filter event status">
+            <option value="all">All Events</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="past">Past</option>
+          </select>
+
+          <select id="sort-filter" aria-label="Sort events">
+            <option value="newest">Date: Latest First</option>
+            <option value="oldest">Date: Earliest First</option>
+            <option value="name">Name: A–Z</option>
+          </select>
+        </div>
+
+        <div class="event-results">
+          <strong id="results-count">Loading events...</strong>
+          <span>Click View Details for more information</span>
+        </div>
+
+        <p id="events-message" class="events-message" role="status" aria-live="polite">
+          Loading events...
+        </p>
+
+        <div id="events-grid" class="events-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="event-modal" class="modal-backdrop" hidden>
+    <div class="event-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-top">
+        <div>
+          <span class="eyebrow">EVENT INFORMATION</span>
+          <h2 id="modal-title">Event Details</h2>
+        </div>
+        <button id="close-modal" class="modal-close" type="button" aria-label="Close details">×</button>
+      </div>
+
+      <div id="modal-content" class="modal-content"></div>
+
+      <div class="modal-footer">
+        <button id="close-modal-bottom" class="modal-button" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <strong>Gather <span>&amp; Co.</span></strong>
+      <p>Discover more. Experience more. © 2026 Gather & Co.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gather & Co. | Welcome</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <div class="background-shape shape-top"></div>
+  <div class="background-shape shape-bottom"></div>
+
+  <div class="floating-icon ticket">🎟️</div>
+  <div class="floating-icon sparkle">✦</div>
+  <div class="floating-icon starburst">✳</div>
+  <div class="floating-icon party">🎉</div>
+
+  <main class="page">
+    <header class="brand">
+      <h1><span>Gather</span> <em>&amp; Co.</em></h1>
+      <p>Discover more. Experience more.</p>
+    </header>
+
+    <div class="flip-scene">
+      <div class="flip-card" id="flip-card">
+        <!-- LOGIN -->
+        <section class="card-face card-front" id="login-face">
+          <div class="eyebrow">WELCOME BACK</div>
+          <h2>Good to see you again! 👋</h2>
+          <p class="intro">Sign in to explore events and make unforgettable memories.</p>
+
+          <div class="feedback" id="login-feedback" role="status" aria-live="polite" hidden></div>
+
+          <form id="login-form">
+            <label for="login-email">Email Address</label>
+            <input id="login-email" type="email" placeholder="Enter your email address" autocomplete="email" required>
+
+            <label for="login-password">Password</label>
+            <input id="login-password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+
+            <button class="primary-button" type="submit" id="login-button">Sign In →</button>
+          </form>
+
+          <p class="switch-text">
+            Don't have an account?
+            <button type="button" class="switch-link" id="show-register">Sign Up</button>
+          </p>
+        </section>
+
+        <!-- REGISTER -->
+        <section class="card-face card-back" id="register-face" inert>
+          <div class="eyebrow">JOIN THE COMMUNITY</div>
+          <h2>Let's get you started! ✨</h2>
+          <p class="intro">Create your account and start making memories.</p>
+
+          <div class="feedback" id="register-feedback" role="status" aria-live="polite" hidden></div>
+
+          <form id="register-form">
+            <label for="register-name">Full Name</label>
+            <input id="register-name" type="text" placeholder="Enter your full name" autocomplete="name" required>
+
+            <label for="register-email">Email Address</label>
+            <input id="register-email" type="email" placeholder="Enter your email address" autocomplete="email" required>
+
+            <label for="register-password">Password</label>
+            <input id="register-password" type="password" placeholder="Create your password" autocomplete="new-password" minlength="6" required>
+
+            <label for="register-role">Register As</label>
+            <select id="register-role" required>
+              <option value="customer">Customer — Explore events</option>
+              <option value="organiser">Organiser — Create events</option>
+            </select>
+
+            <button class="primary-button" type="submit" id="register-button">Create Account →</button>
+          </form>
+
+          <p class="switch-text">
+            Already have an account?
+            <button type="button" class="switch-link" id="show-login">Sign In</button>
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

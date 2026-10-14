@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Events | Gather & Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="my-events.css">
+  <script src="my-events.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-content">
+      <a class="logo" href="index.html">Gather <span>&amp; Co.</span></a>
+      <nav class="navigation">
+        <a href="index.html">Dashboard</a>
+        <a href="my-events.html" class="active">My Events</a>
+        <a href="venues.html">Venues</a>
+      </nav>
+      <div class="nav-actions">
+        <span id="welcome-name">Hi, Organiser!</span>
+        <button id="logout-btn" class="logout-btn" type="button">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container events-main">
+    <section class="events-hero">
+      <div>
+        <span class="eyebrow">✦ YOUR EVENT COLLECTION</span>
+        <h1>Manage Your <span>Events.</span></h1>
+        <p>Every event has a story. Keep yours organised.</p>
+      </div>
+      <a href="create-event.html" class="new-event-btn">+ Create New Event</a>
+    </section>
+
+    <section class="management-section">
+      <div class="management-heading">
+        <div>
+          <span class="eyebrow">EVENT MANAGEMENT</span>
+          <h2>All My Events</h2>
+          <p>Edit event details or manage your event collection.</p>
+        </div>
+        <span id="event-count" class="count-badge">Loading...</span>
+      </div>
+
+      <div class="events-toolbar">
+        <input id="search-input" type="search" placeholder="Search your events...">
+        <select id="status-filter" aria-label="Filter events">
+          <option value="all">All Events</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="past">Past Events</option>
+        </select>
+        <button id="refresh-btn" type="button">Refresh ↻</button>
+      </div>
+
+      <p id="page-message" class="page-message" role="status" aria-live="polite">
+        Loading your events...
+      </p>
+
+      <div id="events-list" class="managed-events-grid"></div>
+    </section>
+  </main>
+
+  <dialog id="edit-dialog" class="edit-dialog" aria-labelledby="edit-dialog-title">
+    <div class="dialog-heading">
+      <div>
+        <span class="eyebrow">✦ EVENT MANAGEMENT</span>
+        <h2 id="edit-dialog-title">Edit Event</h2>
+      </div>
+      <button type="button" id="close-dialog" class="close-dialog" aria-label="Close">✕</button>
+    </div>
+
+    <form id="edit-form">
+      <input type="hidden" id="edit-id">
+
+      <label for="edit-title">Event Title *</label>
+      <input id="edit-title" type="text" maxlength="200" required>
+
+      <label for="edit-description">Description</label>
+      <textarea id="edit-description" rows="5"></textarea>
+
+      <label for="edit-date">Event Date &amp; Time *</label>
+      <input id="edit-date" type="datetime-local" required>
+
+      <label for="edit-price">Ticket Price (RM) *</label>
+      <input id="edit-price" type="number" min="0.01" step="0.01" required>
+
+      <p id="edit-message" class="edit-message" role="status" aria-live="polite"></p>
+
+      <div class="dialog-actions">
+        <button id="cancel-edit" type="button" class="secondary-btn">Cancel</button>
+        <button id="save-btn" type="submit" class="primary-btn">Save Changes →</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="container">
+      <strong>Gather <span>&amp; Co.</span></strong>
+      <p>Discover more. Experience more. © 2026 Gather & Co.</p>
+    </div>
+  </footer>
+</body>
+</html>

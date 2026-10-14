@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Events | Gather & Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="background-circle circle-left"></div>
+  <div class="background-circle circle-right"></div>
+
+  <header class="site-header">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">
+        Gather <span>&amp; Co.</span>
+      </a>
+
+      <nav class="navigation" aria-label="Main navigation">
+        <a href="index.html" class="active">Explore Events</a>
+        <a href="../customer-profile/index.html">My Bookings</a>
+      </nav>
+
+      <div class="nav-actions">
+        <span id="welcome-name">Hi, Customer!</span>
+        <button id="logout-btn" class="logout-btn" type="button">
+          Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="hero-label">DISCOVER MORE. EXPERIENCE MORE.</span>
+      <h1>Find your next<br><span>unforgettable moment.</span></h1>
+      <p>
+        From exciting celebrations to inspiring experiences,
+        there's always something worth gathering for.
+      </p>
+      <div class="hero-decoration" aria-hidden="true"></div>
+    </section>
+
+    <section class="explore-section" aria-labelledby="explore-title">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">WHAT'S HAPPENING</span>
+          <h2 id="explore-title">Explore Events</h2>
+          <p>Discover events made for moments that matter.</p>
+        </div>
+        <span id="event-count" class="event-count">Loading...</span>
+      </div>
+
+      <form id="filter-form" class="filters">
+        <div class="filter-field search-field">
+          <label for="search-input">Search Events</label>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Search by event name..."
+          >
+        </div>
+
+        <div class="filter-field">
+          <label for="city-filter">City</label>
+          <select id="city-filter">
+            <option value="">All Cities</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label for="sort-filter">Sort By</label>
+          <select id="sort-filter">
+            <option value="asc">Date: Earliest First</option>
+            <option value="desc">Date: Latest First</option>
+          </select>
+        </div>
+
+        <button class="search-button" type="submit">
+          Search →
+        </button>
+      </form>
+
+      <div id="status-message" class="status-message" role="status" aria-live="polite"></div>
+
+      <div id="events-grid" class="events-grid"></div>
+
+      <div class="pagination">
+        <button id="prev-btn" type="button">← Previous</button>
+        <span id="page-info">Page 1</span>
+        <button id="next-btn" type="button">Next →</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <strong>Gather <span>&amp; Co.</span></strong>
+      <p>Discover more. Experience more. © 2026 Gather & Co.</p>
+    </div>
+  </footer>
+</body>
+</html>

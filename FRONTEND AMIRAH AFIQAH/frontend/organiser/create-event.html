@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Event | Gather & Co.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="create-event.css">
+  <script src="create-event.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">Gather <span>&amp; Co.</span></a>
+
+      <nav class="navigation">
+        <a href="index.html">Dashboard</a>
+        <a href="my-events.html">My Events</a>
+        <a href="venues.html">Venues</a>
+      </nav>
+
+      <div class="nav-actions">
+        <span id="welcome-name">Hi, Organiser!</span>
+        <button id="logout-btn" type="button" class="logout-btn">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container create-main">
+    <a href="index.html" class="back-link">← Back to Dashboard</a>
+
+    <section class="create-heading">
+      <span class="eyebrow">BRING YOUR IDEAS TO LIFE</span>
+      <h1>Create a New <span>Event.</span></h1>
+      <p>Every unforgettable experience starts with a great idea.</p>
+    </section>
+
+    <div class="create-layout">
+      <section class="form-card">
+        <div class="card-heading">
+          <span class="step-pill">01 / EVENT DETAILS</span>
+          <h2>Tell us about your event</h2>
+          <p>Fill in the details below to publish your event on Gather & Co.</p>
+        </div>
+
+        <form id="create-event-form">
+          <div class="form-field">
+            <label for="event-title">Event Title <span>*</span></label>
+            <input
+              type="text"
+              id="event-title"
+              name="title"
+              maxlength="200"
+              placeholder="e.g. Cybersecurity Summit 2026"
+              required
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="event-description">Event Description</label>
+            <textarea
+              id="event-description"
+              name="description"
+              rows="6"
+              placeholder="What makes your event special? Tell your attendees what to expect..."
+            ></textarea>
+            <small>Give your attendees a reason to be excited!</small>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="event-date">Event Date &amp; Time <span>*</span></label>
+              <input
+                type="datetime-local"
+                id="event-date"
+                name="event_date"
+                required
+              >
+            </div>
+
+            <div class="form-field">
+              <label for="event-venue">Event Venue <span>*</span></label>
+              <select id="event-venue" name="venue_id" required>
+                <option value="">Loading venues...</option>
+              </select>
+              <small id="venue-help">Choose an available venue.</small>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="ticket-price">Ticket Price (RM) <span>*</span></label>
+              <input
+                type="number"
+                id="ticket-price"
+                name="ticket_price"
+                min="0.01"
+                step="0.01"
+                placeholder="e.g. 50.00"
+                required
+              >
+            </div>
+
+            <div class="form-field">
+              <label for="total-tickets">Total Tickets <span>*</span></label>
+              <input
+                type="number"
+                id="total-tickets"
+                name="total_tickets"
+                min="1"
+                step="1"
+                placeholder="e.g. 100"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <a href="index.html" class="cancel-link">Cancel</a>
+            <button type="submit" id="submit-btn" class="publish-btn">
+              Publish Event →
+            </button>
+          </div>
+
+          <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <aside class="preview-card">
+        <span class="eyebrow">LIVE PREVIEW</span>
+        <h2>Your Event at a Glance</h2>
+        <p class="preview-intro">See how your event details come together.</p>
+
+        <div class="preview-event">
+          <span class="preview-badge">NEW EVENT</span>
+          <h3 id="preview-title">Your amazing event title</h3>
+
+          <div class="preview-info">
+            <div>
+              <p id="preview-date">Choose a date and time</p>
+            </div>
+            <div>
+              <p id="preview-venue">Choose a venue</p>
+            </div>
+            <div>
+              <p id="preview-tickets">0 tickets available</p>
+            </div>
+          </div>
+
+          <div class="preview-bottom">
+            <div>
+              <small>PRICE PER TICKET</small>
+              <strong id="preview-price">RM 0.00</strong>
+            </div>
+            <span class="preview-arrow">↗</span>
+          </div>
+        </div>
+
+        <div class="preview-tip">
+          <strong>A little tip!</strong>
+          <p>A clear event title and detailed description help attendees understand what you're organising.</p>
+        </div>
+      </aside>
+    </div>
+
+    <section id="success-panel" class="success-panel" hidden>
+      <div class="success-icon">✓</div>
+      <span class="eyebrow">EVENT PUBLISHED</span>
+      <h2>Your event is live! 🎉</h2>
+      <p>Your new event has been successfully created.</p>
+      <div class="success-actions">
+        <a href="my-events.html" class="publish-btn">View My Events →</a>
+        <button type="button" id="create-another-btn" class="secondary-btn">
+          Create Another Event
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <strong>Gather <span>&amp; Co.</span></strong>
+      <p>Discover more. Experience more. © 2026 Gather & Co.</p>
+    </div>
+  </footer>
+</body>
+</html>

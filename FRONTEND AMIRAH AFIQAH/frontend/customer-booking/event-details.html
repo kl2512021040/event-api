@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details | Gather & Co.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="event-details.css">
+  <script src="event-details.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">Gather <span>&amp; Co.</span></a>
+
+      <nav class="navigation">
+        <a href="index.html" class="active">Explore Events</a>
+        <a href="../customer-profile/index.html">My Bookings</a>
+      </nav>
+
+      <div class="nav-actions">
+        <span id="welcome-name">Hi, Customer!</span>
+        <button type="button" id="logout-btn" class="logout-btn">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container details-main">
+    <a href="index.html" class="back-link">← Back to Explore Events</a>
+
+    <div id="page-message" class="page-message" role="status" aria-live="polite">
+      Loading event details...
+    </div>
+
+    <div id="details-content" class="details-layout" hidden>
+      <section class="details-card">
+        <div class="event-heading">
+          <span class="eyebrow">YOUR NEXT EXPERIENCE</span>
+          <span id="event-status" class="event-badge">UPCOMING EVENT</span>
+        </div>
+
+        <h1 id="event-title">Event Title</h1>
+        <p class="details-subtitle">Make memories worth keeping with Gather & Co.</p>
+
+        <div class="details-divider"></div>
+
+        <h2>About This Event</h2>
+        <p id="event-description" class="about-text"></p>
+
+        <h2>Event Information</h2>
+
+        <div class="details-info">
+          <div class="detail-item">
+            <div>
+              <span class="detail-label">DATE & TIME</span>
+              <strong id="event-date">—</strong>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div>
+              <span class="detail-label">VENUE</span>
+              <strong id="event-venue">—</strong>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div>
+              <span class="detail-label">CITY / LOCATION</span>
+              <strong id="event-location">—</strong>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div>
+              <span class="detail-label">AVAILABLE TICKETS</span>
+              <strong id="event-availability">—</strong>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div>
+              <span class="detail-label">ORGANISED BY</span>
+              <strong id="event-organiser">—</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="booking-card">
+        <span class="eyebrow">RESERVE YOUR SPOT</span>
+        <h2>Book Your Tickets</h2>
+        <p class="booking-subtitle">Your next unforgettable moment starts here.</p>
+
+        <div class="ticket-price-box">
+          <span>PRICE PER TICKET</span>
+          <strong id="ticket-price">RM 0.00</strong>
+        </div>
+
+        <form id="booking-form">
+          <label for="ticket-quantity">Number of Tickets</label>
+
+          <div class="quantity-control">
+            <button type="button" id="decrease-btn" aria-label="Decrease tickets">−</button>
+            <input id="ticket-quantity" type="number" min="1" value="1" required>
+            <button type="button" id="increase-btn" aria-label="Increase tickets">+</button>
+          </div>
+
+          <div class="booking-summary">
+            <div>
+              <span>Ticket Price</span>
+              <strong id="summary-unit-price">RM 0.00</strong>
+            </div>
+            <div>
+              <span>Quantity</span>
+              <strong id="summary-quantity">1 ticket</strong>
+            </div>
+            <div class="summary-total">
+              <span>Total Amount</span>
+              <strong id="summary-total">RM 0.00</strong>
+            </div>
+          </div>
+
+          <button type="submit" id="confirm-btn" class="confirm-btn">
+            Confirm Booking →
+          </button>
+
+          <p class="booking-note">Please review your ticket quantity before confirming.</p>
+        </form>
+
+        <div id="booking-feedback" class="booking-feedback" role="status" aria-live="polite" hidden></div>
+      </aside>
+    </div>
+
+    <section id="booking-success" class="success-card" hidden>
+      <div class="success-symbol">✓</div>
+      <span class="eyebrow">BOOKING CONFIRMED</span>
+      <h2>You're going! 🎉</h2>
+      <p>Your booking was successfully created.</p>
+
+      <div class="success-code">
+        <span>YOUR BOOKING CODE</span>
+        <strong id="booking-code">—</strong>
+      </div>
+
+      <p>Total Paid: <strong id="success-total">RM 0.00</strong></p>
+
+      <div id="qr-container" class="qr-container" hidden>
+        <img id="booking-qr" alt="Booking confirmation QR code" width="180" height="180">
+        <small>Keep this QR code for your event.</small>
+      </div>
+
+      <a href="index.html" class="success-link">Explore More Events →</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <strong>Gather <span>&amp; Co.</span></strong>
+      <p>Discover more. Experience more. © 2026 Gather & Co.</p>
+    </div>
+  </footer>
+</body>
+</html>

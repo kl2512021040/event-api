@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Gather & Co.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">Gather <span>&amp; Co.</span></a>
+
+        <nav class="navigation">
+    <a href="#users">Users</a>
+    <a href="events.html">Events</a>
+    <a href="#platform">Platform</a>  
+    </nav>
+
+      <div class="nav-actions">
+        <span id="welcome-name">Hi, Admin!</span>
+        <button id="logout-btn" class="logout-btn" type="button">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="admin-hero" id="overview">
+      <div>
+        <span class="hero-label">GATHER & CO. ADMINISTRATION</span>
+        <h1>Welcome to your<br><span>Control Centre.</span></h1>
+        <p>Monitor your platform, explore user activity and keep everything organised.</p>
+      </div>
+      <div class="hero-symbol" aria-hidden="true">✳</div>
+    </section>
+
+    <section class="overview-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">PLATFORM AT A GLANCE</span>
+          <h2>Dashboard Overview</h2>
+          <p>Live information retrieved from Gather & Co. APIs.</p>
+        </div>
+        <button id="refresh-btn" class="refresh-btn" type="button">Refresh ↻</button>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card">
+          <span class="stat-label">Total Users</span>
+          <strong id="total-users">—</strong>
+          <small>Registered accounts</small>
+        </article>
+
+        <article class="stat-card">
+          <span class="stat-label">Customers</span>
+          <strong id="total-customers">—</strong>
+          <small>Customer accounts</small>
+        </article>
+
+        <article class="stat-card">
+          <span class="stat-label">Organisers</span>
+          <strong id="total-organisers">—</strong>
+          <small>Event organisers</small>
+        </article>
+
+        <article class="stat-card">
+          <span class="stat-label">Total Events</span>
+          <strong id="total-events">—</strong>
+          <small>Events on the platform</small>
+        </article>
+
+        <article class="stat-card">
+          <span class="stat-label">Total Venues</span>
+          <strong id="total-venues">—</strong>
+          <small>Registered event venues</small>
+        </article>
+      </div>
+    </section>
+
+    <section class="users-section" id="users">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">ACCOUNT DIRECTORY</span>
+          <h2>User Management</h2>
+          <p>Browse and filter all registered accounts.</p>
+        </div>
+        <span id="users-count" class="count-badge">Loading...</span>
+      </div>
+
+      <div class="table-card">
+        <div class="table-toolbar">
+          <input id="user-search" type="search" placeholder="Search by name or email...">
+
+          <select id="role-filter" aria-label="Filter user role">
+            <option value="all">All Roles</option>
+            <option value="customer">Customers</option>
+            <option value="organiser">Organisers</option>
+            <option value="admin">Admins</option>
+          </select>
+        </div>
+
+        <p id="users-message" class="status-message" role="status" aria-live="polite">
+          Loading users...
+        </p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Full Name</th>
+                <th>Email Address</th>
+                <th>Role</th>
+                <th>Joined Date</th>
+              </tr>
+            </thead>
+            <tbody id="users-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="platform-section" id="platform">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">PLATFORM MONITORING</span>
+          <h2>Platform Overview</h2>
+          <p>Quick access to event and venue information.</p>
+        </div>
+      </div>
+
+      <div class="platform-grid">
+        <article class="platform-card">
+          <h3>Event Directory</h3>
+          <p>View event information available through the public Events API.</p>
+          <span id="event-summary">Loading event count...</span>
+        </article>
+
+        <article class="platform-card">
+          <h3>Venue Directory</h3>
+          <p>Monitor the number of registered venues across the platform.</p>
+          <span id="venue-summary">Loading venue count...</span>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <strong>Gather <span>&amp; Co.</span></strong>
+      <p>Discover more. Experience more. © 2026 Gather & Co.</p>
+    </div>
+  </footer>
+</body>
+</html>

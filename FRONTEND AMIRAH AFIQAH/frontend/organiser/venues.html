@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Venue Management | Gather & Co.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="venues.css">
+  <script src="venues.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">Gather <span>&amp; Co.</span></a>
+      <nav class="navigation">
+        <a href="index.html">Dashboard</a>
+        <a href="my-events.html">My Events</a>
+        <a href="venues.html" class="active">Venues</a>
+      </nav>
+      <div class="nav-actions">
+        <span id="welcome-name">Hi, Organiser!</span>
+        <button id="logout-btn" class="logout-btn" type="button">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container venues-main">
+    <section class="venues-hero">
+      <div>
+        <span class="eyebrow">WHERE EXPERIENCES BEGIN</span>
+        <h1>Venue <span>Management.</span></h1>
+        <p>Discover, create and manage spaces for unforgettable events.</p>
+      </div>
+      <button id="add-venue-btn" class="hero-action" type="button">+ Add New Venue</button>
+    </section>
+
+    <section class="venue-section">
+      <div class="venue-heading">
+        <div>
+          <span class="eyebrow">THE VENUE COLLECTION</span>
+          <h2>Available Venues</h2>
+          <p>Browse locations available for events.</p>
+        </div>
+        <span id="venue-count" class="count-badge">Loading...</span>
+      </div>
+
+      <div class="venue-toolbar">
+        <input id="search-input" type="search" placeholder="Search venue, location or city...">
+        <select id="ownership-filter" aria-label="Filter venues">
+          <option value="all">All Venues</option>
+          <option value="mine">My Venues</option>
+        </select>
+        <button id="refresh-btn" type="button">Refresh ↻</button>
+      </div>
+
+      <p id="page-message" class="page-message" role="status" aria-live="polite">
+        Loading venues...
+      </p>
+
+      <div id="venues-grid" class="venues-grid"></div>
+    </section>
+  </main>
+
+  <dialog id="venue-dialog" class="venue-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-heading">
+      <div>
+        <span class="eyebrow">VENUE DETAILS</span>
+        <h2 id="dialog-title">Add New Venue</h2>
+      </div>
+      <button id="close-dialog" class="close-dialog" type="button" aria-label="Close">✕</button>
+    </div>
+
+    <form id="venue-form">
+      <input type="hidden" id="venue-id">
+
+      <label for="venue-name">Venue Name *</label>
+      <input id="venue-name" type="text" maxlength="200" placeholder="e.g. Grand Convention Hall" required>
+
+      <label for="venue-location">Full Location / Address *</label>
+      <textarea id="venue-location" rows="3" placeholder="e.g. Jalan Ampang, Kuala Lumpur" required></textarea>
+
+      <div class="form-grid">
+        <div>
+          <label for="venue-city">City *</label>
+          <input id="venue-city" type="text" maxlength="100" placeholder="e.g. Kuala Lumpur" required>
+        </div>
+        <div>
+          <label for="venue-capacity">Capacity *</label>
+          <input id="venue-capacity" type="number" min="1" step="1" placeholder="e.g. 300" required>
+        </div>
+      </div>
+
+      <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+
+      <div class="dialog-actions">
+        <button id="cancel-dialog" class="secondary-btn" type="button">Cancel</button>
+        <button id="save-venue-btn" class="primary-btn" type="submit">Save Venue →</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="container">
+      <strong>Gather <span>&amp; Co.</span></strong>
+      <p>Discover more. Experience more. © 2026 Gather & Co.</p>
+    </div>
+  </footer>
+</body>
+</html>
